@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 	"github.com/gtmartem/go-http-rest-api/internal/app/model"
@@ -52,10 +53,14 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 
 func (s *server) configureRouter() {
+	// CORS:
+	s.router.Use(handlers.CORS(handlers.AllowedOrigins([]string{"*"})))
+
+	// not private:
 	s.router.HandleFunc("/users", s.handleUsersCreate()).Methods("POST")
 	s.router.HandleFunc("/sessions", s.handleSessionsCreate()).Methods("POST")
 
-	// /private/...
+	// private:
 	private := s.router.PathPrefix("/private").Subrouter()
 	private.Use(s.authenticateUser)
 	private.HandleFunc("/whoami", s.handleWhoami()).Methods("GET")
