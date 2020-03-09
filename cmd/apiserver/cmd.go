@@ -1,9 +1,10 @@
-package main
+package apiserver
 
 import (
 	"flag"
 	"github.com/BurntSushi/toml"
 	"github.com/gtmartem/go-http-rest-api/internal/app/apiserver"
+	"github.com/spf13/cobra"
 	"log"
 )
 
@@ -23,7 +24,7 @@ func init() {
 }
 
 
-func main() {
+func startCmd(cmd *cobra.Command, args []string) {
 	// parse configs
 	flag.Parse()
 	config := apiserver.NewConfig()
@@ -38,3 +39,11 @@ func main() {
 	}
 }
 
+
+func Cmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "apiserver",
+		Short: "Use this command to run go http rest api server",
+		Run:   startCmd,
+	}
+}
