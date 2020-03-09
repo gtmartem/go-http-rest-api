@@ -2,7 +2,7 @@ package apiserver
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/gtmartem/go-http-rest-api/internal/app/store"
+	"github.com/gtmartem/go-http-rest-api/internal/app/store/sqlstore"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
@@ -13,7 +13,7 @@ type APIServer struct{
 	config		*Config
 	logger		*logrus.Logger
 	router		*mux.Router
-	store		*store.Store
+	store		*sqlstore.Store
 }
 
 
@@ -57,7 +57,7 @@ func (s *APIServer) configureRouter() {
 
 
 func (s *APIServer) configureStore() error {
-	st := store.New(s.config.Store)
+	st := sqlstore.New(s.config.Store)
 	if err := st.Open(); err != nil {
 		return err
 	}
