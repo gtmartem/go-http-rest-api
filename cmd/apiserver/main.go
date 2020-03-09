@@ -33,8 +33,7 @@ func main() {
 	}
 
 	// create server
-	s := apiserver.New(config)
-	if err := s.Start(); err != nil {
+	if err := apiserver.Start(config); err != nil {
 		log.Fatal(err)
 	}
 }

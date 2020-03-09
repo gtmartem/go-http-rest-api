@@ -2,6 +2,7 @@ package teststore
 
 import (
 	"github.com/gtmartem/go-http-rest-api/internal/app/model"
+	"github.com/gtmartem/go-http-rest-api/internal/app/store"
 )
 
 
@@ -12,13 +13,13 @@ type Store struct {
 
 
 // New ...
-func New() *Store {
+func New() store.Store {
 	return &Store{}
 }
 
 
 // User ...
-func (s *Store) User() *UserRepository {
+func (s *Store) User() store.UserRepository {
 	if s.userRepository != nil {
 		return s.userRepository
 	}

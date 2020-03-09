@@ -15,7 +15,7 @@ type Store struct {
 
 
 // New ...
-func New(db *sql.DB) *Store {
+func New(db *sql.DB) store.Store {
 	return &Store{
 		db: db,
 	}
