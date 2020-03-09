@@ -1,8 +1,8 @@
 package teststore
 
 import (
-	"errors"
 	"github.com/gtmartem/go-http-rest-api/internal/app/model"
+	"github.com/gtmartem/go-http-rest-api/internal/app/store"
 )
 
 
@@ -31,7 +31,7 @@ func (r *UserRepository) Create(u *model.User) error {
 func (r *UserRepository) FindByEmail(email string) (*model.User, error) {
 	u, ok := r.users[email]
 	if !ok {
-		return nil, errors.New("not found")
+		return nil, store.ErrRecordNotFound
 	}
 	return u, nil
 }
